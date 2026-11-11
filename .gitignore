@@ -7,3 +7,5 @@ npm-debug.log*
 __pycache__/
 *.sqlite3
 .vscode/
+target/
+testing/target/

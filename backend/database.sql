@@ -190,7 +190,8 @@ ON CONFLICT (employee_id) DO NOTHING;
 
 INSERT INTO public.student (roll_number, registered_number, name, year, phone_number, email, password, gender) VALUES
     (524001, 924002, 'Second Person', 3, 8900327640, 'secondperson@gmail.com', 'SP@001', 'Male'),
-    (424001, 924001, 'First Person', 3, 9182347654, 'firstperson@gmail.com', 'FP@001', 'Male'),
+    (424001, 924001, 'First Person', 3, 9182347654, 'firstperson@gmail.com', 'Student@001', 'Male'),
+    (424154, 924154, 'Santhosh', 3, 1234567890, 'santhosh@student.nitandhra.ac.in', 'Sonthosh@123', 'Male'),
     (325003, 925002, 'Third Person', 2, 9988765342, '325003@student.nitandhra.ac.in', 'TP@003', 'Female'),
     (425005, 925004, 'Fourth Person', 2, 7765983254, '425005@student.nitandhra.ac.in', 'FP@005', 'Male')
 ON CONFLICT (roll_number) DO NOTHING;

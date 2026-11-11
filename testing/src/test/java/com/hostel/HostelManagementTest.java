@@ -174,6 +174,37 @@ public class HostelManagementTest {
     private static Connection getDbConnection() {
         try {
             Class.forName("org.postgresql.Driver");
+            String dbUrl = System.getenv("DATABASE_URL");
+            if (dbUrl == null || dbUrl.isEmpty()) {
+                try {
+                    java.nio.file.Path envPath = java.nio.file.Paths.get("..", "backend", ".env");
+                    if (!java.nio.file.Files.exists(envPath)) {
+                        envPath = java.nio.file.Paths.get("backend", ".env");
+                    }
+                    if (java.nio.file.Files.exists(envPath)) {
+                        for (String line : java.nio.file.Files.readAllLines(envPath)) {
+                            if (line.trim().startsWith("DATABASE_URL=")) {
+                                dbUrl = line.trim().substring("DATABASE_URL=".length()).trim();
+                                break;
+                            }
+                        }
+                    }
+                } catch (Exception ignored) {}
+            }
+            if (dbUrl != null && !dbUrl.isEmpty()) {
+                if (dbUrl.startsWith("postgresql://") || dbUrl.startsWith("postgres://")) {
+                    String cleanUrl = dbUrl.replace("postgresql://", "http://").replace("postgres://", "http://");
+                    java.net.URI uri = new java.net.URI(cleanUrl);
+                    String userInfo = uri.getUserInfo();
+                    String user = userInfo != null ? userInfo.split(":")[0] : "postgres";
+                    String pass = userInfo != null && userInfo.contains(":") ? userInfo.split(":")[1] : "";
+                    String host = uri.getHost();
+                    int port = uri.getPort() > 0 ? uri.getPort() : 5432;
+                    String path = uri.getPath() != null && uri.getPath().length() > 1 ? uri.getPath().substring(1) : "neondb";
+                    String jdbcUrl = "jdbc:postgresql://" + host + ":" + port + "/" + path + "?sslmode=require";
+                    return DriverManager.getConnection(jdbcUrl, user, pass);
+                }
+            }
             return DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/hostellers", "postgres", "Sanjay@26"
             );
@@ -604,7 +635,7 @@ public class HostelManagementTest {
         WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("startAllocationModal")));
         assertTrue(modal.isDisplayed(), "Start allocation modal dialog should be displayed");
 
-        WebElement closeBtn = driver.findElement(By.cssSelector("[data-action='closeStartAllocationModal']"));
+        WebElement closeBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-action='closeStartAllocationModal']")));
         jsClick(closeBtn);
     }
 
@@ -813,8 +844,8 @@ public class HostelManagementTest {
         Connection conn = getDbConnection();
         if (conn != null) {
             try (Statement stmt = conn.createStatement()) {
-                stmt.executeUpdate("DELETE FROM hostel_maintenance WHERE maintenance_id IN (SELECT maintenance_id FROM maintenance WHERE roll_number = 424001 AND date = CURRENT_DATE)");
-                stmt.executeUpdate("DELETE FROM maintenance WHERE roll_number = 424001 AND date = CURRENT_DATE");
+                stmt.executeUpdate("DELETE FROM hostel_maintenance WHERE maintenance_id IN (SELECT maintenance_id FROM maintenance WHERE roll_number = 424001)");
+                stmt.executeUpdate("DELETE FROM maintenance WHERE roll_number = 424001");
             } catch (Exception ignored) {
             } finally {
                 try { conn.close(); } catch (Exception ignored) {}

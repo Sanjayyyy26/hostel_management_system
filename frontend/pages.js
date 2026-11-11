@@ -1123,7 +1123,13 @@ const PageTemplates = {
               const aText = parts.length > 1 ? parts.slice(1).join('\n\n') : (a.announcement || '');
               return `
                 <article class="ct-card">
-                  <h3 class="ct-card-title">${escapeHtml(aTitle)}</h3>
+                  <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                    <h3 class="ct-card-title" style="margin:0;">${escapeHtml(aTitle)}</h3>
+                    <button class="delete-btn" type="button" data-action="deleteAnnouncement" data-id="${escapeHtml(a.announcement_id || a.id)}" title="Delete Announcement" style="background:#fee2e2; border:none; color:#dc2626; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:600; display:inline-flex; align-items:center; gap:4px;">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m5 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+                      Delete
+                    </button>
+                  </div>
                   <div class="ct-inner-box">
                     <p class="ct-inner-text">${escapeHtml(aText)}</p>
                     <div class="ct-inner-footer">
@@ -1230,7 +1236,13 @@ const PageTemplates = {
                       <h3 class="ct-card-title">${escapeHtml(title)}</h3>
                       <span class="ct-card-subdate">${escapeHtml(formatDate(c.date))}${c.time ? ' ' + escapeHtml(formatTime(c.time)) : ''}</span>
                     </div>
-                    <button class="ct-badge ${statusClass}" type="button" data-action="toggleComplaint" data-id="${escapeHtml(c.complaint_id)}" data-next-status="${!isResolved}" title="Click to mark as ${isResolved ? 'In Progress' : 'Done'}">${statusText}</button>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <button class="ct-badge ${statusClass}" type="button" data-action="toggleComplaint" data-id="${escapeHtml(c.complaint_id)}" data-next-status="${!isResolved}" title="Click to mark as ${isResolved ? 'In Progress' : 'Done'}">${statusText}</button>
+                      <button class="delete-btn" type="button" data-action="deleteComplaint" data-id="${escapeHtml(c.complaint_id)}" title="Delete Complaint" style="background:#fee2e2; border:none; color:#dc2626; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:600; display:inline-flex; align-items:center; gap:4px;">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m5 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+                        Delete
+                      </button>
+                    </div>
                   </div>
                   <div class="ct-inner-box">
                     <p class="ct-inner-text">${escapeHtml(text || '')}</p>
@@ -2096,7 +2108,13 @@ const PageTemplates = {
               const aText = parts.length > 1 ? parts.slice(1).join('\n\n') : (a.announcement || '');
               return `
                 <article class="ct-card">
-                  <h3 class="ct-card-title">${escapeHtml(aTitle)}</h3>
+                  <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                    <h3 class="ct-card-title" style="margin:0;">${escapeHtml(aTitle)}</h3>
+                    <button class="delete-btn" type="button" data-action="deleteAnnouncement" data-id="${escapeHtml(a.announcement_id || a.id)}" title="Delete Announcement" style="background:#fee2e2; border:none; color:#dc2626; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:600; display:inline-flex; align-items:center; gap:4px;">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m5 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+                      Delete
+                    </button>
+                  </div>
                   <div class="ct-inner-box">
                     <p class="ct-inner-text">${escapeHtml(aText)}</p>
                     <div class="ct-inner-footer">
@@ -2192,7 +2210,13 @@ const PageTemplates = {
                       <h3 class="ct-card-title">${escapeHtml(title)}</h3>
                       <span class="ct-card-subdate">${escapeHtml(formatDate(c.date))}${c.time ? ' ' + escapeHtml(formatTime(c.time)) : ''}</span>
                     </div>
-                    <button class="ct-badge ${statusClass}" type="button" data-action="toggleComplaint" data-id="${escapeHtml(c.complaint_id || c.id)}" data-next-status="${!isResolved}" title="Click to mark as ${isResolved ? 'In Progress' : 'Done'}">${statusText}</button>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <button class="ct-badge ${statusClass}" type="button" data-action="toggleComplaint" data-id="${escapeHtml(c.complaint_id || c.id)}" data-next-status="${!isResolved}" title="Click to mark as ${isResolved ? 'In Progress' : 'Done'}">${statusText}</button>
+                      <button class="delete-btn" type="button" data-action="deleteComplaint" data-id="${escapeHtml(c.complaint_id || c.id)}" title="Delete Complaint" style="background:#fee2e2; border:none; color:#dc2626; padding:4px 8px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:600; display:inline-flex; align-items:center; gap:4px;">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m5 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+                        Delete
+                      </button>
+                    </div>
                   </div>
                   <div class="ct-inner-box">
                     <p class="ct-inner-text">${escapeHtml(text || '')}</p>

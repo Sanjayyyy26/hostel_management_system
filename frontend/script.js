@@ -322,7 +322,7 @@ function addPageEventListeners(role, page) {
     });
   });
 
-  // Delete complaint (Student's own complaint)
+  // Delete complaint (Student, Caretaker & Admin)
   document.querySelectorAll('[data-action="deleteComplaint"]').forEach(btn => {
     btn.addEventListener('click', async (e) => {
       e.stopPropagation();
@@ -340,6 +340,34 @@ function addPageEventListeners(role, page) {
       } else {
         btn.disabled = false;
         showToast(res.message || 'Failed to delete complaint', 'error');
+      }
+    });
+  });
+
+  // Delete announcement (Caretaker & Admin)
+  document.querySelectorAll('[data-action="deleteAnnouncement"]').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const annId = btn.dataset.id;
+      if (!annId) return;
+      if (!confirm('Are you sure you want to delete this announcement? This cannot be undone.')) {
+        return;
+      }
+      btn.disabled = true;
+      try {
+        const res = await Auth.api(`/api/announcements/${annId}`, {
+          method: 'DELETE'
+        });
+        if (res.success) {
+          showToast('Announcement deleted successfully', 'success');
+          loadPage(role, page);
+        } else {
+          btn.disabled = false;
+          showToast(res.message || 'Failed to delete announcement', 'error');
+        }
+      } catch (err) {
+        btn.disabled = false;
+        showToast('Failed to delete announcement', 'error');
       }
     });
   });
@@ -1827,9 +1855,9 @@ function setupNavigation() {
       currentRole = button.dataset.role;
 
       const labelMap = {
-        student: { label: 'Roll Number / Email', placeholder: 'e.g. 424001 or firstperson@gmail.com' },
-        caretaker: { label: 'Employee ID / Email', placeholder: 'e.g. EMP_001 or emp001@gmail.com' },
-        admin: { label: 'Admin Key', placeholder: 'e.g. Admin_001' }
+        student: { label: 'Roll Number / Email', placeholder: 'Roll Number / Email' },
+        caretaker: { label: 'Employee ID / Email', placeholder: 'Employee ID / Email' },
+        admin: { label: 'Admin Key', placeholder: 'Admin Key' }
       };
 
       if (idLabel) idLabel.textContent = labelMap[currentRole].label;

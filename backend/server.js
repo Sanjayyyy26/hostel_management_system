@@ -75,24 +75,12 @@ function validatePassword(password) {
 }
 
 async function passwordsMatch(plain, stored) {
+  if (!plain || !stored) return false;
   if (typeof stored === "string" && stored.startsWith("$2")) {
     const isMatch = await bcrypt.compare(plain, stored).catch(() => false);
     if (isMatch) return true;
   }
-  if (!plain) return false;
-  const pLower = String(plain).trim().toLowerCase();
-  const sLower = String(stored || "").trim().toLowerCase();
-  if (pLower === sLower) return true;
-  // Demo password fallback aliases for students/admins/caretakers
-  const demoPasswords = [
-    "student@001", "fp@001", "oc@001", "care@001", "sp@001", "tp@003",
-    "12345678", "password", "admin@001", "admin@123", "student@123",
-    "demo123", "pass", "demo"
-  ];
-  if (demoPasswords.includes(pLower)) {
-    return true;
-  }
-  return false;
+  return String(plain).trim() === String(stored).trim();
 }
 
 async function getStudentContext(rollNumber) {
@@ -130,21 +118,11 @@ async function getStudentContext(rollNumber) {
     const fb = fallbackStudents.find(s => String(s.roll_number) === rollStr);
     if (fb) {
       ctx = { ...fb };
-    } else {
-      ctx = {
-        roll_number: rollNum,
-        registered_number: rollNum,
-        name: verifiedAlloc?.name || "Student",
-        year: Number(verifiedAlloc?.year) || 3,
-        email: `${rollStr}@nitandhra.ac.in`,
-        phone_number: "9876543210",
-        gender: "Male"
-      };
     }
   }
 
   // If ctx has no room_id, but verified in memoryStore or fallbackStudents:
-  if (!ctx.room_id && verifiedAlloc) {
+  if (ctx && !ctx.room_id && verifiedAlloc) {
     const hLower = (verifiedAlloc.hostel || "").toLowerCase();
     const bId = hLower.startsWith("sab") ? "SAB_B_03" :
                 (hLower.startsWith("ind") ? "IND_B_03" :
@@ -217,7 +195,7 @@ const fallbackStudents = [
     registered_number: 924154,
     name: 'Santhosh',
     email: 'santhosh@student.nitandhra.ac.in',
-    password: 'Student@001',
+    password: 'Sonthosh@123',
     year: 3,
     gender: 'Male',
     phone_number: '1234567890',
@@ -232,7 +210,7 @@ const fallbackStudents = [
     registered_number: 924001,
     name: 'First Person',
     email: 'firstperson@gmail.com',
-    password: 'FP@001',
+    password: 'Student@001',
     year: 3,
     gender: 'Male',
     phone_number: '9182347654',
@@ -779,16 +757,20 @@ app.post("/api/login", async (req, res) => {
   }
 
   const cleanId = String(id).trim();
-  let effectiveRole = role;
+  const requestedRole = String(role).trim().toLowerCase();
+  if (!["student", "caretaker", "admin"].includes(requestedRole)) {
+    return res.status(400).json({ success: false, message: "Invalid role specified" });
+  }
+
   let userRow = null;
   let fallbackUser = null;
 
-  // 1. Try DB first if available
+  // 1. Try DB first strictly for requested role
   try {
-    if (role === "admin") {
+    if (requestedRole === "admin") {
       const result = await query("SELECT key, password FROM admin WHERE key = $1", [cleanId]);
       userRow = result.rows[0];
-    } else if (role === "caretaker") {
+    } else if (requestedRole === "caretaker") {
       const result = await query(
         `SELECT employee_id, name, phone_number, email, password
          FROM caretaker
@@ -796,7 +778,7 @@ app.post("/api/login", async (req, res) => {
         [cleanId]
       );
       userRow = result.rows[0];
-    } else if (role === "student") {
+    } else if (requestedRole === "student") {
       const result = await query(
         `SELECT roll_number, password
          FROM student
@@ -809,98 +791,41 @@ app.post("/api/login", async (req, res) => {
         userRow.password = result.rows[0].password;
       }
     }
-
-    // If not found with selected role, check other roles in DB
-    if (!userRow) {
-      const stRes = await query(
-        `SELECT roll_number, password
-         FROM student
-         WHERE roll_number::text = $1 OR LOWER(email) = LOWER($1) OR registered_number::text = $1`,
-        [cleanId]
-      );
-      if (stRes.rows[0]) {
-        effectiveRole = "student";
-        const studentCtx = await getStudentContext(stRes.rows[0].roll_number);
-        userRow = studentCtx || stRes.rows[0];
-        userRow.password = stRes.rows[0].password;
-      } else {
-        const ctRes = await query(
-          `SELECT employee_id, name, phone_number, email, password
-           FROM caretaker
-           WHERE employee_id = $1 OR LOWER(email) = LOWER($1)`,
-          [cleanId]
-        );
-        if (ctRes.rows[0]) {
-          effectiveRole = "caretaker";
-          userRow = ctRes.rows[0];
-        } else {
-          const admRes = await query("SELECT key, password FROM admin WHERE key = $1", [cleanId]);
-          if (admRes.rows[0]) {
-            effectiveRole = "admin";
-            userRow = admRes.rows[0];
-          }
-        }
-      }
-    }
   } catch (dbErr) {
     console.warn("DB login query error:", dbErr.message);
   }
 
-  // 2. If not found in DB, check fallback lists
+  // 2. Check fallback strictly for the requested role (never cross-role)
   if (!userRow) {
     const idLower = cleanId.toLowerCase();
-    if (effectiveRole === "caretaker") {
+    if (requestedRole === "caretaker") {
       fallbackUser = fallbackCaretakers.find(c => c.employee_id.toLowerCase() === idLower || c.email.toLowerCase() === idLower);
-    } else if (effectiveRole === "admin") {
+    } else if (requestedRole === "admin") {
       fallbackUser = fallbackAdmins.find(a => a.key.toLowerCase() === idLower);
-    } else if (effectiveRole === "student") {
+    } else if (requestedRole === "student") {
       fallbackUser = fallbackStudents.find(s =>
         String(s.roll_number) === cleanId ||
         String(s.registered_number) === cleanId ||
-        s.email.toLowerCase() === idLower ||
-        s.name.toLowerCase() === idLower ||
-        s.name.toLowerCase().includes(idLower)
+        s.email.toLowerCase() === idLower
       );
-    }
-
-    // Auto-role detection if not found in current role:
-    if (!fallbackUser) {
-      const asStudent = fallbackStudents.find(s =>
-        String(s.roll_number) === cleanId ||
-        String(s.registered_number) === cleanId ||
-        s.email.toLowerCase() === idLower ||
-        s.name.toLowerCase() === idLower
-      );
-      if (asStudent) {
-        effectiveRole = "student";
-        fallbackUser = asStudent;
-      } else {
-        const asCaretaker = fallbackCaretakers.find(c => c.employee_id.toLowerCase() === idLower || c.email.toLowerCase() === idLower);
-        if (asCaretaker) {
-          effectiveRole = "caretaker";
-          fallbackUser = asCaretaker;
-        } else {
-          const asAdmin = fallbackAdmins.find(a => a.key.toLowerCase() === idLower);
-          if (asAdmin) {
-            effectiveRole = "admin";
-            fallbackUser = asAdmin;
-          }
-        }
-      }
     }
   }
 
   const target = userRow || fallbackUser;
   if (!target) {
-    return res.status(401).json({ success: false, message: "User not found. Please check your Roll Number / ID." });
+    const roleLabels = { student: "Student", caretaker: "Caretaker", admin: "Admin" };
+    return res.status(401).json({
+      success: false,
+      message: `Invalid credentials. Please verify your ${roleLabels[requestedRole] || "user"} ID.`
+    });
   }
 
   const ok = await passwordsMatch(password, target.password);
   if (!ok) {
-    return res.status(401).json({ success: false, message: "Invalid password. (Demo: Student@001 / Admin@001 / OC@001)" });
+    return res.status(401).json({ success: false, message: "Invalid password." });
   }
 
-  const user = publicUser(effectiveRole, target);
+  const user = publicUser(requestedRole, target);
   const token = signToken({
     userId: user.userId,
     role: user.role,
@@ -909,7 +834,7 @@ app.post("/api/login", async (req, res) => {
   });
 
   let caretakerBlocks = target.blocks || [];
-  if (effectiveRole === "caretaker" && (!caretakerBlocks || !caretakerBlocks.length)) {
+  if (requestedRole === "caretaker" && (!caretakerBlocks || !caretakerBlocks.length)) {
     try {
       const ctHostels = await query(
         `SELECT ch.block_id, h.name
@@ -923,11 +848,11 @@ app.post("/api/login", async (req, res) => {
       }
     } catch (e) {}
   }
-  if (effectiveRole === "caretaker" && (!caretakerBlocks || !caretakerBlocks.length)) {
+  if (requestedRole === "caretaker" && (!caretakerBlocks || !caretakerBlocks.length)) {
     const fb = fallbackCaretakers.find(c => c.employee_id.toLowerCase() === String(user.userId).toLowerCase());
     if (fb && fb.blocks) caretakerBlocks = fb.blocks;
   }
-  if (effectiveRole === "caretaker" && (!caretakerBlocks || !caretakerBlocks.length)) {
+  if (requestedRole === "caretaker" && (!caretakerBlocks || !caretakerBlocks.length)) {
     caretakerBlocks = [{ block_id: "SAB_B_03", name: "Sabari" }];
   }
 
@@ -935,7 +860,7 @@ app.post("/api/login", async (req, res) => {
     ...user,
     token,
     loginTime: Date.now(),
-    ...(effectiveRole === "caretaker" ? { blocks: caretakerBlocks } : {})
+    ...(requestedRole === "caretaker" ? { blocks: caretakerBlocks } : {})
   };
   sessions.set(token, sessionObj);
 
@@ -1219,6 +1144,19 @@ app.post("/api/announcements", requireAuth(["admin", "caretaker"]), async (req, 
       hostels: ["Sabari"]
     });
     res.status(201).json({ success: true, announcement_id: announcementId });
+  }
+});
+
+app.delete("/api/announcements/:id", requireAuth(["admin", "caretaker"]), async (req, res) => {
+  const annId = String(req.params.id);
+  try {
+    await query("DELETE FROM hostel_announcements WHERE announcement_id = $1", [annId]);
+    await query("DELETE FROM announcements WHERE announcement_id = $1", [annId]);
+    memoryStore.announcements = memoryStore.announcements.filter(a => a.announcement_id !== annId);
+    return res.json({ success: true, message: "Announcement deleted successfully" });
+  } catch (error) {
+    memoryStore.announcements = memoryStore.announcements.filter(a => a.announcement_id !== annId);
+    return res.json({ success: true, message: "Announcement deleted successfully" });
   }
 });
 
@@ -1604,10 +1542,11 @@ app.delete("/api/complaints/:id", requireAuth(), async (req, res) => {
 
   try {
     // 1. Check DB for complaint
-    const checkQuery = role === "admin"
+    const isStaff = role === "admin" || role === "caretaker";
+    const checkQuery = isStaff
       ? "SELECT complaint_id, roll_number FROM complaints WHERE complaint_id = $1 OR complaint_id = $2"
       : "SELECT complaint_id, roll_number FROM complaints WHERE (complaint_id = $1 OR complaint_id = $2) AND roll_number = $3";
-    const checkParams = role === "admin"
+    const checkParams = isStaff
       ? [complaintId, `CMP_${complaintId}`]
       : [complaintId, `CMP_${complaintId}`, Number(userId)];
 
@@ -1615,12 +1554,12 @@ app.delete("/api/complaints/:id", requireAuth(), async (req, res) => {
     if (!existing.rowCount) {
       // Check if complaint belongs to someone else
       const anyExist = await query("SELECT complaint_id, roll_number FROM complaints WHERE complaint_id = $1 OR complaint_id = $2", [complaintId, `CMP_${complaintId}`]);
-      if (anyExist.rowCount) {
+      if (anyExist.rowCount && !isStaff) {
         return res.status(403).json({ success: false, message: "You can only delete your own complaints" });
       }
 
       // MemoryStore fallback
-      const memIdx = memoryStore.complaints.findIndex(c => (c.complaint_id === complaintId || c.complaint_id === `CMP_${complaintId}`) && (role === "admin" || String(c.roll_number) === userId));
+      const memIdx = memoryStore.complaints.findIndex(c => (c.complaint_id === complaintId || c.complaint_id === `CMP_${complaintId}`) && (isStaff || String(c.roll_number) === userId));
       if (memIdx !== -1) {
         memoryStore.complaints.splice(memIdx, 1);
         return res.json({ success: true, message: "Complaint deleted successfully" });
