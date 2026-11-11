@@ -1,0 +1,22 @@
+{
+  "name": "hostel-management-system",
+  "version": "1.0.0",
+  "description": "Enterprise Hostel Management System with Node.js, Express, PostgreSQL, and Selenium WebDriver Automated Testing.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js",
+    "test": "cd testing && ./mvnw test",
+    "db:setup": "node backend/scripts/setup-db.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "pg": "^8.11.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

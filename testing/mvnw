@@ -1,0 +1,14 @@
+#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+PROJECT_ROOT="$(dirname "$DIR")"
+
+if [ -f "$PROJECT_ROOT/.maven/bin/mvn" ]; then
+  exec "$PROJECT_ROOT/.maven/bin/mvn" "$@"
+elif [ -f "$HOME/.maven/bin/mvn" ]; then
+  exec "$HOME/.maven/bin/mvn" "$@"
+elif command -v mvn &> /dev/null; then
+  exec mvn "$@"
+else
+  echo "Error: Maven not found."
+  exit 1
+fi

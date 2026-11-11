@@ -27,53 +27,81 @@ A secure web-based hostel management system with role-based authentication for A
 
 ## 🚀 Quick Start
 
-### 1. Open the Application
+### 1. Start the Application
+Run the PostgreSQL-backed Node.js server:
+```bash
+npm start
+```
+Then visit **http://localhost:3000** in your browser.
 
-Simply open `index.html` in a modern web browser.
-
-### 2. Test Credentials
+### 2. Test Credentials (from PostgreSQL Database)
 
 #### Admin Login
-| Field | Value |
-|-------|-------|
-| Key | `admin001` |
-| Password | `Admin@123` |
-
-#### Student Login
-| Field | Value |
-|-------|-------|
-| ID | `STU001` |
-| Password | `Student@123` |
+| Role | Identifier | Password |
+|------|------------|----------|
+| **Admin** | `Admin_001` | `Admin@001` |
+| **Admin** | `Admin_002` | `Admin@002` |
 
 #### Caretaker Login
-| Field | Value |
-|-------|-------|
-| ID | `CARE001` |
-| Password | `Caretaker@123` |
+| Role | Identifier | Password | Assigned Block |
+|------|------------|----------|----------------|
+| **Caretaker** | `EMP_001` | `OC@001` | Vamsadhara, Nagavalli |
+| **Caretaker** | `EMP_002` | `TC@002` | Sabari, Indhravathi |
+| **Caretaker** | `EMP_003` | `TC@003` | Krishna |
+
+#### Student Login
+| Role | Roll No / Email | Password | Assigned Room |
+|------|-----------------|----------|---------------|
+| **Student** | `424001` | `FP@001` | Sabari (Room 101) |
+| **Student** | `524001` | `SP@001` | Indhravathi (Room 101) |
+| **Student** | `325003` | `TP@003` | Krishna (Room 101) |
+| **Student** | `425005` | `FP@005` | Nagavalli (Room 101) |
+
+*(You can also register a brand new student using the **Register** button on the website)*
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Architecture
 
 ```
 hostel_management_system/
-├── index.html          # Main HTML file
-├── auth.js            # Authentication module
-├── pages.js           # Page templates for each role
-├── script.js          # Main application logic
-├── style.css          # Stylesheet
-├── README.md          # This file
-└── docs/              # Documentation
-    ├── README.md          # Documentation index
-    ├── FR-01-User-Registration.md
-    ├── FR-02-Credential-Validation.md
-    ├── FR-03-Role-Identification.md
-    ├── FR-04-Role-Based-Access-Control.md
-    ├── FR-05-Session-Management.md
-    ├── FR-06-Logout.md
-    ├── Database-Schema.md
-    ├── Security.md
-    └── API-Reference.md
+├── frontend/                     # Client-Side Application (HTML5 / CSS3 / Vanilla JS SPA)
+│   ├── index.html                # Main SPA Layout, Modals & Dynamic Containers
+│   ├── style.css                 # Unified Responsive CSS Design System
+│   ├── auth.js                   # Client-side Session Management, JWT & Route Guards
+│   ├── pages.js                  # Dynamic View Templates (Student, Caretaker, Admin)
+│   ├── script.js                 # Event Controllers, Interactivity & DOM Routing
+│   └── README.md                 # Frontend Documentation & Architecture
+│
+├── backend/                      # Server-Side Service (Node.js + Express + PostgreSQL)
+│   ├── server.js                 # Express REST API Server & Business Logic Endpoints
+│   ├── db.js                     # PostgreSQL Connection Pool Configuration (pg)
+│   ├── database.sql              # Relational Database Schema (DDL) & Seed Data
+│   ├── scripts/
+│   │   └── setup-db.js           # Database Provisioning & Migration Script
+│   ├── package.json              # Backend Package Descriptor
+│   └── README.md                 # Backend REST API Reference & Schema Docs
+│
+├── testing/                      # Automated Regression Suite (Selenium 4 + JUnit 5)
+│   ├── pom.xml                   # Maven Build Configuration
+│   ├── mvnw                      # Portable Maven Wrapper Script
+│   ├── src/test/java/com/hostel/ # 38 End-to-End Automated Test Cases (TC-01 to TC-38)
+│   ├── TEST_EXECUTION_REPORT.md  # Formal Verification & Results Report
+│   └── README.md                 # Test Execution & Running Guide
+│
+├── docs/                         # Software Engineering Requirements & Specifications
+│   ├── API-Reference.md
+│   ├── Database-Schema.md
+│   ├── FR-01-User-Registration.md
+│   ├── FR-02-Credential-Validation.md
+│   ├── FR-03-Role-Identification.md
+│   ├── FR-04-Role-Based-Access-Control.md
+│   ├── FR-05-Session-Management.md
+│   ├── FR-06-Logout.md
+│   └── README.md
+│
+├── package.json                  # Root Task Runner & Script Orchestrator
+└── README.md                     # Master Project Documentation
 ```
 
 ---
@@ -93,8 +121,8 @@ hostel_management_system/
 ## 🛠️ Technical Details
 
 ### Storage
-- **Database**: Browser LocalStorage
-- **Session**: Client-side session management
+- **Database**: PostgreSQL (Backed by pg connection pool)
+- **API**: Express.js REST API with Token-based sessions
 
 ### Session Duration
 - **Timeout**: 30 minutes
@@ -122,25 +150,45 @@ Complete documentation is available in the `docs/` folder:
 
 ## 🧪 Testing
 
-### Test User Accounts
+### Automated Selenium WebDriver & JUnit 5 Suite
+The project contains a comprehensive automated regression suite consisting of **38 test cases (TC-01 to TC-38)** covering end-to-end user workflows, positive/negative validation, and database persistence checks:
+
+- **Framework**: Selenium WebDriver 4.25.0 + JUnit 5 (Jupiter 5.11.0)
+- **Database Verification**: PostgreSQL JDBC connection
+- **Total Tests**: 38 | **Passed**: 38 | **Failed**: 0 | **Skipped**: 0
+- **Test File**: [`testing/src/test/java/com/hostel/HostelManagementTest.java`](testing/src/test/java/com/hostel/HostelManagementTest.java)
+- **Full Test Report**: [`testing/TEST_EXECUTION_REPORT.md`](testing/TEST_EXECUTION_REPORT.md)
+- **Testing Guide**: [`testing/README.md`](testing/README.md)
+
+#### How to Run the Automated Tests:
+Ensure the application is running (`node server.js`), then in a new terminal run:
+```bash
+cd testing
+./mvnw test
+```
+
+### Test User Accounts (from PostgreSQL Database)
 
 #### Admin Accounts
 | Key | Password | Name |
 |-----|----------|------|
-| admin001 | Admin@123 | Super Admin |
-| admin002 | Admin@456 | Hostel Admin |
-
-#### Student Accounts
-| ID | Password | Name |
-|----|----------|------|
-| STU001 | Student@123 | Sreenivas |
-| STU002 | Student@456 | Rahul Kumar |
+| `Admin_001` | `Admin@001` | Admin One |
+| `Admin_002` | `Admin@002` | Admin Two |
 
 #### Caretaker Accounts
-| ID | Password | Name |
-|----|----------|------|
-| CARE001 | Caretaker@123 | Ramesh |
-| CARE002 | Caretaker@456 | Suresh |
+| ID | Password | Name | Assigned Block |
+|----|----------|------|----------------|
+| `EMP_001` | `OC@001` | Indhravathi Caretaker | Indhravathi |
+| `EMP_002` | `TC@002` | Sabari Caretaker | Sabari |
+| `EMP_003` | `TC@003` | Krishna Caretaker | Krishna |
+
+#### Student Accounts
+| Roll Number | Password | Name | Assigned Room |
+|-------------|----------|------|---------------|
+| `424001` | `Student@001` | First Person | Sabari (Room 101) |
+| `524001` | `Student@001` | Second Person | Indhravathi (Room 101) |
+| `325003` | `Student@001` | Third Person | Krishna (Room 101) |
+| `425005` | `Student@001` | Fourth Person | Nagavalli (Room 101) |
 
 ---
 

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.hostel.HostelManagementTest" time="40.348" tests="38" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="26"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/sanjaypal/Software Engineering project/testing/target/test-classes:/Users/sanjaypal/Software Engineering project/testing/target/classes:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-java/4.25.0/selenium-java-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-api/4.25.0/selenium-api-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/4.25.0/selenium-chrome-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-chromium-driver/4.25.0/selenium-chromium-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-json/4.25.0/selenium-json-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-manager/4.25.0/selenium-manager-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v127/4.25.0/selenium-devtools-v127-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v128/4.25.0/selenium-devtools-v128-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v129/4.25.0/selenium-devtools-v129-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v85/4.25.0/selenium-devtools-v85-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-edge-driver/4.25.0/selenium-edge-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-firefox-driver/4.25.0/selenium-firefox-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-http/4.25.0/selenium-http-4.25.0.jar:/Users/sanjaypal/.m2/repository/dev/failsafe/failsafe/3.3.2/failsafe-3.3.2.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-ie-driver/4.25.0/selenium-ie-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/4.25.0/selenium-remote-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/com/google/guava/guava/33.3.0-jre/guava-33.3.0-jre.jar:/Users/sanjaypal/.m2/repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar:/Users/sanjaypal/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sanjaypal/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/Users/sanjaypal/.m2/repository/com/google/errorprone/error_prone_annotations/2.28.0/error_prone_annotations-2.28.0.jar:/Users/sanjaypal/.m2/repository/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/semconv/opentelemetry-semconv/1.25.0-alpha/opentelemetry-semconv-1.25.0-alpha.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-api/1.42.1/opentelemetry-api-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-context/1.42.1/opentelemetry-context-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-exporter-logging/1.42.1/opentelemetry-exporter-logging-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-common/1.42.1/opentelemetry-sdk-common-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure-spi/1.42.1/opentelemetry-sdk-extension-autoconfigure-spi-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure/1.42.1/opentelemetry-sdk-extension-autoconfigure-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-api-incubator/1.42.1-alpha/opentelemetry-api-incubator-1.42.1-alpha.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-trace/1.42.1/opentelemetry-sdk-trace-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk/1.42.1/opentelemetry-sdk-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-metrics/1.42.1/opentelemetry-sdk-metrics-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-logs/1.42.1/opentelemetry-sdk-logs-1.42.1.jar:/Users/sanjaypal/.m2/repository/net/bytebuddy/byte-buddy/1.15.1/byte-buddy-1.15.1.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-os/4.25.0/selenium-os-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/apache/commons/commons-exec/1.4.0/commons-exec-1.4.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-safari-driver/4.25.0/selenium-safari-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-support/4.25.0/selenium-support-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.0/junit-jupiter-api-5.11.0.jar:/Users/sanjaypal/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/sanjaypal/.m2/repository/org/junit/platform/junit-platform-commons/1.11.0/junit-platform-commons-1.11.0.jar:/Users/sanjaypal/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/sanjaypal/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.11.0/junit-jupiter-engine-5.11.0.jar:/Users/sanjaypal/.m2/repository/org/junit/platform/junit-platform-engine/1.11.0/junit-platform-engine-1.11.0.jar:/Users/sanjaypal/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.11.0/junit-jupiter-params-5.11.0.jar:/Users/sanjaypal/.m2/repository/org/postgresql/postgresql/42.7.4/postgresql-42.7.4.jar:/Users/sanjaypal/.m2/repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="user.timezone" value="Asia/Kolkata"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="26"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IN"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/26.0.2.1/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/sanjaypal/Software Engineering project/testing/target/surefire/surefirebooter-20261112012542954_3.jar /Users/sanjaypal/Software Engineering project/testing/target/surefire 2026-11-12T01-25-42_914-jvmRun1 surefire-20261112012542954_1tmp surefire_0-20261112012542954_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/sanjaypal/Software Engineering project/testing/target/test-classes:/Users/sanjaypal/Software Engineering project/testing/target/classes:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-java/4.25.0/selenium-java-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-api/4.25.0/selenium-api-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/4.25.0/selenium-chrome-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-chromium-driver/4.25.0/selenium-chromium-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-json/4.25.0/selenium-json-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-manager/4.25.0/selenium-manager-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v127/4.25.0/selenium-devtools-v127-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v128/4.25.0/selenium-devtools-v128-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v129/4.25.0/selenium-devtools-v129-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v85/4.25.0/selenium-devtools-v85-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-edge-driver/4.25.0/selenium-edge-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-firefox-driver/4.25.0/selenium-firefox-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-http/4.25.0/selenium-http-4.25.0.jar:/Users/sanjaypal/.m2/repository/dev/failsafe/failsafe/3.3.2/failsafe-3.3.2.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-ie-driver/4.25.0/selenium-ie-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/4.25.0/selenium-remote-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/com/google/guava/guava/33.3.0-jre/guava-33.3.0-jre.jar:/Users/sanjaypal/.m2/repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar:/Users/sanjaypal/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sanjaypal/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/Users/sanjaypal/.m2/repository/com/google/errorprone/error_prone_annotations/2.28.0/error_prone_annotations-2.28.0.jar:/Users/sanjaypal/.m2/repository/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/semconv/opentelemetry-semconv/1.25.0-alpha/opentelemetry-semconv-1.25.0-alpha.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-api/1.42.1/opentelemetry-api-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-context/1.42.1/opentelemetry-context-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-exporter-logging/1.42.1/opentelemetry-exporter-logging-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-common/1.42.1/opentelemetry-sdk-common-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure-spi/1.42.1/opentelemetry-sdk-extension-autoconfigure-spi-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure/1.42.1/opentelemetry-sdk-extension-autoconfigure-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-api-incubator/1.42.1-alpha/opentelemetry-api-incubator-1.42.1-alpha.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-trace/1.42.1/opentelemetry-sdk-trace-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk/1.42.1/opentelemetry-sdk-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-metrics/1.42.1/opentelemetry-sdk-metrics-1.42.1.jar:/Users/sanjaypal/.m2/repository/io/opentelemetry/opentelemetry-sdk-logs/1.42.1/opentelemetry-sdk-logs-1.42.1.jar:/Users/sanjaypal/.m2/repository/net/bytebuddy/byte-buddy/1.15.1/byte-buddy-1.15.1.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-os/4.25.0/selenium-os-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/apache/commons/commons-exec/1.4.0/commons-exec-1.4.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-safari-driver/4.25.0/selenium-safari-driver-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/seleniumhq/selenium/selenium-support/4.25.0/selenium-support-4.25.0.jar:/Users/sanjaypal/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.0/junit-jupiter-api-5.11.0.jar:/Users/sanjaypal/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/sanjaypal/.m2/repository/org/junit/platform/junit-platform-commons/1.11.0/junit-platform-commons-1.11.0.jar:/Users/sanjaypal/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/sanjaypal/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.11.0/junit-jupiter-engine-5.11.0.jar:/Users/sanjaypal/.m2/repository/org/junit/platform/junit-platform-engine/1.11.0/junit-platform-engine-1.11.0.jar:/Users/sanjaypal/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.11.0/junit-jupiter-params-5.11.0.jar:/Users/sanjaypal/.m2/repository/org/postgresql/postgresql/42.7.4/postgresql-42.7.4.jar:/Users/sanjaypal/.m2/repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/sanjaypal"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-08-18"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/26.0.2.1/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/sanjaypal/Software Engineering project/testing"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/sanjaypal/Software Engineering project/testing/target/surefire/surefirebooter-20261112012542954_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="26.0.2.1"/>
+    <property name="user.name" value="sanjaypal"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.6.2"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/sanjaypal/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/08/6wnhrgx97sn7m6jbfvw31h9m0000gn/T/"/>
+    <property name="java.version" value="26.0.2.1"/>
+    <property name="user.dir" value="/Users/sanjaypal/Software Engineering project/testing"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/sanjaypal/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="26.0.2.1"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="70.0"/>
+  </properties>
+  <testcase name="testPageTitleAndLoginFormLoads" classname="com.hostel.HostelManagementTest" time="0.525">
+    <system-out><![CDATA[>> Executing: TC-01: Verify Page Title & Login Form Elements
+]]></system-out>
+    <system-err><![CDATA[Nov 12, 2026 1:25:50 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 157
+Nov 12, 2026 1:25:50 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 157.0.8103.51. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.25.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testValidStudentLogin" classname="com.hostel.HostelManagementTest" time="0.685">
+    <system-out><![CDATA[>> Executing: TC-02: Valid Student Login (424001 / Student@001)
+]]></system-out>
+  </testcase>
+  <testcase name="testInvalidLoginFails" classname="com.hostel.HostelManagementTest" time="0.608">
+    <system-out><![CDATA[>> Executing: TC-03: Invalid Credentials Rejection
+]]></system-out>
+  </testcase>
+  <testcase name="testValidCaretakerLogin" classname="com.hostel.HostelManagementTest" time="0.106">
+    <system-out><![CDATA[>> Executing: TC-04: Valid Caretaker Login (EMP_001 / OC@001)
+]]></system-out>
+  </testcase>
+  <testcase name="testValidAdminLogin" classname="com.hostel.HostelManagementTest" time="0.129">
+    <system-out><![CDATA[>> Executing: TC-05: Valid Admin Login (Admin_001 / Admin@001)
+]]></system-out>
+  </testcase>
+  <testcase name="testUserLogout" classname="com.hostel.HostelManagementTest" time="0.131">
+    <system-out><![CDATA[>> Executing: TC-06: User Logout Flow
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentRegistrationSuccess" classname="com.hostel.HostelManagementTest" time="0.729">
+    <system-out><![CDATA[>> Executing: TC-07: Student Registration - Success Flow
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentRegistrationPasswordMismatch" classname="com.hostel.HostelManagementTest" time="0.182">
+    <system-out><![CDATA[>> Executing: TC-08: Student Registration - Password Mismatch Validation
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentRegistrationMissingFields" classname="com.hostel.HostelManagementTest" time="0.049">
+    <system-out><![CDATA[>> Executing: TC-09: Student Registration - Missing Fields Validation
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentRegistrationDatabasePersistence" classname="com.hostel.HostelManagementTest" time="0.094">
+    <system-out><![CDATA[>> Executing: TC-10: Student Registration - Database Persistence Verification
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentSidebarProfileDetails" classname="com.hostel.HostelManagementTest" time="0.136">
+    <system-out><![CDATA[>> Executing: TC-11: Student Profile - Sidebar Profile Details
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentDashboardGreetingAndCards" classname="com.hostel.HostelManagementTest" time="0.666">
+    <system-out><![CDATA[>> Executing: TC-12: Student Profile - Personalized Greeting & Quick Cards
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentRoomAllocationView" classname="com.hostel.HostelManagementTest" time="4.153">
+    <system-out><![CDATA[>> Executing: TC-13: Room Allocation - Student Allocation View
+]]></system-out>
+  </testcase>
+  <testcase name="testAdminRoomAllocationManagement" classname="com.hostel.HostelManagementTest" time="0.701">
+    <system-out><![CDATA[>> Executing: TC-14: Room Allocation - Admin Management Table & DB Verification
+]]></system-out>
+  </testcase>
+  <testcase name="testAdminAllocationWindowDialog" classname="com.hostel.HostelManagementTest" time="0.167">
+    <system-out><![CDATA[>> Executing: TC-15: Room Allocation - Admin Window Setup Dialog
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentVacatingView" classname="com.hostel.HostelManagementTest" time="0.686">
+    <system-out><![CDATA[>> Executing: TC-16: Room Vacating - Student View
+]]></system-out>
+  </testcase>
+  <testcase name="testAdminEvacuationManagement" classname="com.hostel.HostelManagementTest" time="0.706">
+    <system-out><![CDATA[>> Executing: TC-17: Room Vacating - Admin Evacuation Management
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentSubmitComplaint" classname="com.hostel.HostelManagementTest" time="1.256">
+    <system-out><![CDATA[>> Executing: TC-18: Complaint Submission - Student Adds Complaint
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentVoteComplaint" classname="com.hostel.HostelManagementTest" time="1.172">
+    <system-out><![CDATA[>> Executing: TC-19: Complaint Submission - Upvoting Feature
+]]></system-out>
+  </testcase>
+  <testcase name="testComplaintEmptyFormValidation" classname="com.hostel.HostelManagementTest" time="0.185">
+    <system-out><![CDATA[>> Executing: TC-20: Complaint Submission - Empty Form Validation
+]]></system-out>
+  </testcase>
+  <testcase name="testComplaintDatabasePersistence" classname="com.hostel.HostelManagementTest" time="0.033">
+    <system-out><![CDATA[>> Executing: TC-21: Complaint Submission - Database Verification
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentMaintenanceTable" classname="com.hostel.HostelManagementTest" time="0.669">
+    <system-out><![CDATA[>> Executing: TC-22: Maintenance - Student Table View
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentLogMaintenanceRecord" classname="com.hostel.HostelManagementTest" time="1.272">
+    <system-out><![CDATA[>> Executing: TC-23: Maintenance - Student Logs Record
+]]></system-out>
+  </testcase>
+  <testcase name="testCaretakerMaintenanceView" classname="com.hostel.HostelManagementTest" time="0.683">
+    <system-out><![CDATA[>> Executing: TC-24: Maintenance - Caretaker View
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentSubmitOuting" classname="com.hostel.HostelManagementTest" time="1.304">
+    <system-out><![CDATA[>> Executing: TC-25: Outing - Student Submits Request
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentOutingInvalidPhone" classname="com.hostel.HostelManagementTest" time="0.72">
+    <system-out><![CDATA[>> Executing: TC-26: Outing - Invalid Phone Validation
+]]></system-out>
+  </testcase>
+  <testcase name="testCaretakerOutingApprovalWorkflow" classname="com.hostel.HostelManagementTest" time="1.316">
+    <system-out><![CDATA[>> Executing: TC-27: Outing - Caretaker Outings View & Approval Flow
+]]></system-out>
+  </testcase>
+  <testcase name="testCaretakerPostAnnouncement" classname="com.hostel.HostelManagementTest" time="0.741">
+    <system-out><![CDATA[>> Executing: TC-28: Announcements - Caretaker Posts Notice
+]]></system-out>
+  </testcase>
+  <testcase name="testAdminAnnouncementsView" classname="com.hostel.HostelManagementTest" time="0.673">
+    <system-out><![CDATA[>> Executing: TC-29: Announcements - Admin Block Filter & View
+]]></system-out>
+  </testcase>
+  <testcase name="testStudentAnnouncementsView" classname="com.hostel.HostelManagementTest" time="0.665">
+    <system-out><![CDATA[>> Executing: TC-30: Announcements - Student View
+]]></system-out>
+  </testcase>
+  <testcase name="testCaretakerDashboardOverview" classname="com.hostel.HostelManagementTest" time="0.647">
+    <system-out><![CDATA[>> Executing: TC-31: Caretaker - Dashboard Overview & Block Info
+]]></system-out>
+  </testcase>
+  <testcase name="testCaretakerToggleComplaint" classname="com.hostel.HostelManagementTest" time="0.209">
+    <system-out><![CDATA[>> Executing: TC-32: Caretaker - Complaint Status Toggle
+]]></system-out>
+  </testcase>
+  <testcase name="testCaretakerHostelBlocksView" classname="com.hostel.HostelManagementTest" time="0.141">
+    <system-out><![CDATA[>> Executing: TC-33: Caretaker - Hostel Blocks View
+]]></system-out>
+  </testcase>
+  <testcase name="testAdminDashboardOverview" classname="com.hostel.HostelManagementTest" time="0.64">
+    <system-out><![CDATA[>> Executing: TC-34: Admin - Dashboard Overview
+]]></system-out>
+  </testcase>
+  <testcase name="testAdminUserManagementView" classname="com.hostel.HostelManagementTest" time="0.713">
+    <system-out><![CDATA[>> Executing: TC-35: Admin - User Management Overview
+]]></system-out>
+  </testcase>
+  <testcase name="testAdminEditCaretakerBlockDialog" classname="com.hostel.HostelManagementTest" time="0.699">
+    <system-out><![CDATA[>> Executing: TC-36: Admin - Edit Caretaker Block Dialog
+]]></system-out>
+  </testcase>
+  <testcase name="testAdminRemoveCaretakerButton" classname="com.hostel.HostelManagementTest" time="0.743">
+    <system-out><![CDATA[>> Executing: TC-37: Admin - Caretaker Deletion & Database Verification
+]]></system-out>
+  </testcase>
+  <testcase name="testRoleBasedAccessControlRestriction" classname="com.hostel.HostelManagementTest" time="0.66">
+    <system-out><![CDATA[>> Executing: TC-38: Access Control - Role-Based Access Control & Backend Security
+]]></system-out>
+  </testcase>
+</testsuite>
