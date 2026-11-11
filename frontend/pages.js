@@ -1611,7 +1611,7 @@ const PageTemplates = {
     },
 
     async 'Hostel Blocks'() {
-      return PageTemplates.admin['Hostel Blocks']();
+      return PageTemplates.admin['Hostel Blocks'](true);
     }
   },
 
@@ -2562,26 +2562,35 @@ const PageTemplates = {
       `;
     },
 
-    async 'Hostel Blocks'() {
-      const hostelsRes = await Auth.api('/api/hostels');
-      const hostels = hostelsRes.hostels || [
+    async 'Hostel Blocks'(viewOnly = false) {
+      const [hostelsRes, meRes] = await Promise.all([
+        Auth.api('/api/hostels'),
+        viewOnly ? Auth.api('/api/me') : Promise.resolve({})
+      ]);
+      let hostels = hostelsRes.hostels || [
         { block_id: 'SAB_B_03', name: 'Sabari', for_gender: 'Male', floors: 3, seater: 2, capacity: 150 },
         { block_id: 'IND_B_03', name: 'Indravathi', for_gender: 'Male', floors: 4, seater: 2, capacity: 200 },
         { block_id: 'NAG_B_02', name: 'Nagavalli', for_gender: 'Male', floors: 3, seater: 2, capacity: 150 },
         { block_id: 'KRI_G_01', name: 'Krishna', for_gender: 'Female', floors: 4, seater: 3, capacity: 220 }
       ];
+      if (viewOnly) {
+        const assigned = meRes.user?.blocks || [];
+        const assignedIds = new Set(assigned.map(b => String(b.block_id || '').toLowerCase()).filter(Boolean));
+        const assignedNames = new Set(assigned.map(b => String(b.name || '').toLowerCase()).filter(Boolean));
+        hostels = hostels.filter(h => assignedIds.has(String(h.block_id || '').toLowerCase()) || assignedNames.has(String(h.name || '').toLowerCase()));
+      }
 
       return `
         <div class="ct-page-view">
           <div class="ct-heading ct-flex-between">
             <h1>Hostel Blocks</h1>
-            <div class="admin-header-actions">
+            ${viewOnly ? '' : `<div class="admin-header-actions">
               <button class="admin-btn-primary" type="button" data-action="openAddHostelModal">+ Add Hostel Block</button>
-            </div>
+            </div>`}
           </div>
 
           <!-- Add / Edit Hostel Block Modal -->
-          <section class="complaint-modal" id="hostelBlockModal" hidden>
+          ${viewOnly ? '' : `<section class="complaint-modal" id="hostelBlockModal" hidden>
             <div class="complaint-dialog" style="max-width:540px;">
               <button class="complaint-back" type="button" data-action="closeHostelBlockModal" aria-label="Back">←</button>
               <h2 id="hostelModalTitle" style="margin:0 0 16px 0; font-size:18px;">Add New Hostel Block</h2>
@@ -2636,7 +2645,7 @@ const PageTemplates = {
                 <button class="primary-button" id="hostelModalSubmitBtn" type="submit">SAVE HOSTEL BLOCK</button>
               </form>
             </div>
-          </section>
+          </section>`}
 
           <div class="ct-cards-grid">
             ${hostels.map(h => `
@@ -2655,7 +2664,7 @@ const PageTemplates = {
                     • <strong>Capacity:</strong> ${h.capacity} Students Total<br>
                     • <strong>Eligibility Year:</strong> ${h.years && h.years.length ? h.years.map(y => `Year ${y}`).join(', ') : 'All Years'}
                   </p>
-                  <div style="display:flex; gap:8px; margin-top:12px; border-top:1px solid #e2e8f0; padding-top:10px;">
+                  ${viewOnly ? '' : `<div style="display:flex; gap:8px; margin-top:12px; border-top:1px solid #e2e8f0; padding-top:10px;">
                     <button class="admin-btn-secondary" style="flex:1; padding:6px 10px; font-size:12px;" type="button"
                             data-action="openEditHostelModal"
                             data-id="${escapeHtml(h.block_id)}"
@@ -2669,7 +2678,7 @@ const PageTemplates = {
                             data-action="deleteHostelBlock"
                             data-id="${escapeHtml(h.block_id)}"
                             data-name="${escapeHtml(h.name)}">🗑️ Remove</button>
-                  </div>
+                  </div>`}
                 </div>
               </article>
             `).join('')}
