@@ -229,6 +229,41 @@ window.PageTemplates.student = {
       `;
     },
 
+    async 'Hostel Blocks'() {
+      const res = await Auth.api('/api/hostels');
+      const hostels = res.hostels || [];
+
+      return `
+        <div class="ct-page-view">
+          <div class="ct-heading">
+            <h1>Hostel Blocks</h1>
+            <p>View hostel block details, room types, and student capacity.</p>
+          </div>
+          <div class="ct-cards-grid">
+            ${hostels.length ? hostels.map(h => `
+              <article class="ct-card">
+                <div class="ct-card-header-flex">
+                  <div class="ct-card-title-group">
+                    <h3 class="ct-card-title">${escapeHtml(h.name)} Hall of Residence</h3>
+                    <span class="ct-card-subdate">${escapeHtml(h.for_gender)} Hostel</span>
+                  </div>
+                  <span class="ct-badge badge-verified">Active</span>
+                </div>
+                <div class="ct-inner-box">
+                  <p class="ct-inner-text">
+                    • <strong>Floors:</strong> ${escapeHtml(h.floors)} Floors<br>
+                    • <strong>Room Type:</strong> ${escapeHtml(h.seater)}-Seater Configuration<br>
+                    • <strong>Capacity:</strong> ${escapeHtml(h.capacity)} Students Total<br>
+                    • <strong>Eligibility Year:</strong> ${h.years && h.years.length ? h.years.map(y => `Year ${escapeHtml(y)}`).join(', ') : 'All Years'}
+                  </p>
+                </div>
+              </article>
+            `).join('') : '<p style="color:#666;">No hostel block information is available.</p>'}
+          </div>
+        </div>
+      `;
+    },
+
     async 'Non Local Outing'() {
       const [meRes, res] = await Promise.all([
         Auth.api('/api/me'),

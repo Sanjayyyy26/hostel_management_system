@@ -157,21 +157,6 @@ function showDashboard(role) {
     }
   });
 
-  // Make sidebar profile clickable to view profile
-  const sidebarProfileEl = document.querySelector('#sidebarProfile');
-  if (sidebarProfileEl && !sidebarProfileEl.dataset.profileBound) {
-    sidebarProfileEl.dataset.profileBound = 'true';
-    sidebarProfileEl.style.cursor = 'pointer';
-    sidebarProfileEl.title = 'Click to view My Profile';
-    sidebarProfileEl.addEventListener('click', (e) => {
-      if (e.target.closest('#closeMenu')) return;
-      const cur = Auth.getSession();
-      if (cur && cur.role === 'student') {
-        loadPage('student', 'My Profile');
-      }
-    });
-  }
-
   const defaultPage = Auth.getDefaultPage(role);
   loadPage(role, defaultPage);
   startSessionTimer();

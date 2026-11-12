@@ -30,7 +30,7 @@ const Auth = (() => {
       defaultPage: "Dashboard"
     },
     student: {
-      allowedPages: ["Dashboard", "My Profile", "Announcements", "Complaints", "Maintenance", "Non Local Outing", "Hostel Blocks", "Hostel Room Allocation", "Vacating Room", "Contact Us"],
+      allowedPages: ["Dashboard", "Announcements", "Complaints", "Maintenance", "Non Local Outing", "Hostel Blocks", "Hostel Room Allocation", "Vacating Room", "Contact Us"],
       defaultPage: "Dashboard"
     },
     caretaker: {
