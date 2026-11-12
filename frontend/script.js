@@ -221,11 +221,13 @@ function updateActiveNav(page) {
 }
 
 // ==================== PAGE LOADING ====================
+let pageLoadSequence = 0;
 async function loadPage(role, page) {
   if (!Auth.checkAccess(role, page)) {
     showToast('Access denied to this page', 'error');
     return;
   }
+  const requestId = ++pageLoadSequence;
 
   const pageContent = document.querySelector('#pageContent');
   const pageTitle = document.querySelector('#pageTitle');
@@ -236,9 +238,11 @@ async function loadPage(role, page) {
 
   try {
     const html = await getPageContent(role, page);
+    if (requestId !== pageLoadSequence) return;
     pageContent.innerHTML = html;
     addPageEventListeners(role, page);
   } catch (error) {
+    if (requestId !== pageLoadSequence) return;
     console.error('Page load error:', error);
     pageContent.innerHTML = `<div class="error-panel" style="padding:20px; color:#e10000;"><p>Error loading page: ${escapeHtml(error.message)}</p></div>`;
   }
@@ -401,7 +405,6 @@ function addPageEventListeners(role, page) {
         });
         if (res.success) {
           showToast(nextStatus ? 'Marked complaint as Done' : 'Marked complaint as In Progress', 'success');
-          await loadPage(role, page);
         } else {
           btn.textContent = prevText;
           btn.className = prevClass;
