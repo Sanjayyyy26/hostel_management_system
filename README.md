@@ -69,7 +69,11 @@ hostel_management_system/
 │   ├── index.html                # Main SPA Layout, Modals & Dynamic Containers
 │   ├── style.css                 # Unified Responsive CSS Design System
 │   ├── auth.js                   # Client-side Session Management, JWT & Route Guards
-│   ├── pages.js                  # Dynamic View Templates (Student, Caretaker, Admin)
+│   ├── pages.js                  # Page rendering entry point
+│   ├── page-helpers.js           # Shared rendering helpers
+│   ├── student-pages.js          # Student page templates
+│   ├── caretaker-pages.js        # Caretaker page templates
+│   ├── admin-pages.js            # Admin page templates
 │   ├── script.js                 # Event Controllers, Interactivity & DOM Routing
 │   └── README.md                 # Frontend Documentation & Architecture
 │
@@ -90,6 +94,8 @@ hostel_management_system/
 │   └── README.md                 # Test Execution & Running Guide
 │
 ├── docs/                         # Software Engineering Requirements & Specifications
+│   ├── SRS.md                    # Software Requirements Specification
+│   ├── UML.md                    # UML diagrams
 │   ├── API-Reference.md
 │   ├── Database-Schema.md
 │   ├── FR-01-User-Registration.md
@@ -136,6 +142,8 @@ hostel_management_system/
 Complete documentation is available in the `docs/` folder:
 
 - [Documentation Index](docs/README.md)
+- [Software Requirements Specification](docs/SRS.md)
+- [UML Diagrams](docs/UML.md)
 - [FR-01: User Registration](docs/FR-01-User-Registration.md)
 - [FR-02: Credential Validation](docs/FR-02-Credential-Validation.md)
 - [FR-03: Role Identification](docs/FR-03-Role-Identification.md)

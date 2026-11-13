@@ -1,5 +1,10 @@
 # Hostel Management System - Documentation
 
+## Project Specification
+
+- [Software Requirements Specification](./SRS.md) — scope, actors, functional and quality requirements, interfaces, data requirements, and acceptance criteria.
+- [UML Diagrams](./UML.md) — use case, domain class, sign-in sequence, complaint activity, and deployment views.
+
 ## 📚 Functional Requirements Documentation
 
 This folder contains comprehensive documentation for the Hostel Management System's authentication and authorization module.
